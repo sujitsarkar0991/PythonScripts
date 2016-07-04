@@ -10,7 +10,7 @@ def fib(n):
 			print temp
 
 if __name__ == "__main__":
-	fib(6)
+	fib(7)
 
 
 	
