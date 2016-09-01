@@ -1,7 +1,7 @@
 import requests
-import os
 from  bs4 import BeautifulSoup
-from  selenium import webdriver
+from pytube import YouTube
+
 
 def getAllVideoLinks(playlist):
     source_code = requests.get(playlist)
@@ -9,18 +9,21 @@ def getAllVideoLinks(playlist):
     soup = BeautifulSoup(plain_text, 'html.parser')
     song_list = []
     for link in soup.findAll('a', {'class': 'pl-video-title-link yt-uix-tile-link yt-uix-sessionlink spf-link '}):
-        song_list.append(r'https://www.youtube.com'+link.get('href'))
-    for x in song_list:
-        print x
+        downloadVideos(r'https://www.youtube.com'+link.get('href'))
+
+def downloadVideos(videoUrl):
+    yt = YouTube(videoUrl)
+    print yt.get_videos()
+    try:
+        video = yt.get('mp4','720p')
+    except Exception as e:
+        video = yt.get('mp4','360p')
+        print e
+    #video.download(r'C:\Users\310168881\Desktop\Videos')
+
 def main():
-    #playlist = raw_input("Enter the link for playlist: ")
-    chromedriver = "C:\Python27\Scripts"
-    os.environ["webdriver.chrome.driver"] = chromedriver
-    driver = webdriver.Chrome(chromedriver)
-    driver.get('https://www.youtube.com/playlist?list=PL6dydJby22DjcYcWwnukPw2lxi8PeQScX')
-    elem = driver.find_elements_by_class_name('load-more-text')
-    elem.click()
-    getAllVideoLinks('https://www.youtube.com/playlist?list=PL6dydJby22DjcYcWwnukPw2lxi8PeQScX')
+    playlist = raw_input("Enter the link for playlist: ")
+    getAllVideoLinks(playlist)
 
 if __name__ == '__main__':
     main()
