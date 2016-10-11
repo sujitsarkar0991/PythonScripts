@@ -1,2 +1,8 @@
 Python Profiler
 -https://docs.python.org/3/library/profile.html
+
+Modules
+	time
+	datetime
+	threading
+	subprocess
