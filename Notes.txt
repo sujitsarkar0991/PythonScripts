@@ -1,2 +1,13 @@
+
 1. How to create nested modules
 2. How to add to python path i:e add to system path
+
+Python Profiler
+-https://docs.python.org/3/library/profile.html
+
+Modules
+	time
+	datetime
+	threading
+	subprocess
+
